@@ -12,4 +12,5 @@ param_external_tool1 python sketchfab_upload -t API_TOKEN '%s.ply'
 ```
 
 You can get your Sketchfab API token here: https://sketchfab.com/settings/password
+
 For details: http://ccwu.me/vsfm/index.html
