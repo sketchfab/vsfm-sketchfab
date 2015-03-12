@@ -1,5 +1,5 @@
 ##
-# Script to upload a VisualSFM to Sketchfab
+# Script to upload a VisualSFM model to Sketchfab
 ##
 from time import sleep
 
