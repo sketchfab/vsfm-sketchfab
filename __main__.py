@@ -6,14 +6,15 @@ from time import sleep
 # sys and argparse are included in the standard library
 # requests is included with this package
 
-import sys, argparse, logging, requests
+import sys, os, argparse, logging, requests
 
 # Hide the unverified https request warning
 logging.captureWarnings(True)
 
 # Arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('file', nargs='?', type=argparse.FileType('r'), default=sys.stdin, help='the ply file ("%s.ply")')
+#parser.add_argument('file', nargs='?', type=argparse.FileType('r'), default=sys.stdin, help='the ply file ("%s.ply")')
+parser.add_argument('path', help='path to the ply file ("%s.ply")')
 parser.add_argument('-t', '--token', help='api token')
 parser.add_argument('-n', '--name', help='model name, max 48 characters')
 parser.add_argument('-d', '--description', help='model description, max 1024 characters')
@@ -104,8 +105,11 @@ def poll_processing_status(model_uid):
 ##################################################
  
 # Mandatory parameters
+model_file = os.path.abspath(args.path)
+f = open(model_file, 'rb')
+
 files  = {
-    'modelFile': args.file
+    'modelFile': f
 }
 
 token = args.token
@@ -163,12 +167,9 @@ data = {
     'source': 'visualsfm'
 }
 
-files  = {
-    'modelFile': args.file
-}
-
 try:
     model_uid = upload(data, files)
     # poll_processing_status(model_uid)
 finally:
+    f.close()
     print '\ndone'
