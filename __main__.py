@@ -13,7 +13,6 @@ logging.captureWarnings(True)
 
 # Arguments
 parser = argparse.ArgumentParser()
-#parser.add_argument('file', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help='the ply file ("%s.ply")')
 parser.add_argument('path', help='path to the ply file ("%s.ply")')
 parser.add_argument('-t', '--token', help='api token')
 parser.add_argument('-n', '--name', help='model name, max 48 characters')
@@ -112,10 +111,6 @@ files  = {
     'modelFile': f
 }
 
-#files  = {
-#    'modelFile': args.file
-#}
-
 token = args.token
 
 if (type(token) is not str) or (len(token) is not 32):
@@ -159,7 +154,7 @@ if (password and len(password) > 64):
 tags = args.tags
 if not tags:
     tags = ''
-tags += 'photogrammetry visualsfm 3dscan'  # space-separated list of tags
+tags += 'photogrammetry visualsfm 3dscan'  # Add some default tags
 
 data = {
     'token': token,
