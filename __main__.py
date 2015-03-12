@@ -13,8 +13,8 @@ logging.captureWarnings(True)
 
 # Arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('file', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help='the ply file ("%s.ply")')
-#parser.add_argument('path', help='path to the ply file ("%s.ply")')
+#parser.add_argument('file', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help='the ply file ("%s.ply")')
+parser.add_argument('path', help='path to the ply file ("%s.ply")')
 parser.add_argument('-t', '--token', help='api token')
 parser.add_argument('-n', '--name', help='model name, max 48 characters')
 parser.add_argument('-d', '--description', help='model description, max 1024 characters')
@@ -105,16 +105,16 @@ def poll_processing_status(model_uid):
 ##################################################
  
 # Mandatory parameters
-#model_file = os.path.abspath(args.path)
-#f = open(model_file, 'rb')
-
-#files  = {
-#    'modelFile': f
-#}
+model_file = os.path.abspath(args.path)
+f = open(model_file, 'rb')
 
 files  = {
-    'modelFile': args.file
+    'modelFile': f
 }
+
+#files  = {
+#    'modelFile': args.file
+#}
 
 token = args.token
 
@@ -175,5 +175,5 @@ try:
     model_uid = upload(data, files)
     # poll_processing_status(model_uid)
 finally:
-    #f.close()
+    f.close()
     print '\ndone'
